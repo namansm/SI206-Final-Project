@@ -38,6 +38,7 @@ def load_api_data(url, params=None):
         return None
 
 
+# hello
 def make_covid_table(data, cur, conn):
     countries = []
     for player in data['squad']:
