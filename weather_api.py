@@ -23,7 +23,7 @@ def get_covid_data(cur, conn):
 def load_weather_data(data):
     url = "https://meteostat.p.rapidapi.com/point/daily"
 
-    params = {"lat":"-33.77","lon":"18.56","start":"2020-01-01","end":"2020-01-31"}
+    params = {"lat":"-33.77","lon":"18.56","start":"2020-03-01","end":"2021-03-31"}
 
     headers = {
         "X-RapidAPI-Key": "09dff8466dmsh2dcda9bcb212375p1bc56ejsn43f15c65bb68",
