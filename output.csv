@@ -1,4 +1,4 @@
-Country,Month,Average Daily Temperature (C),Average Daily Wind Speed (kph),Average Daily Rainfall (mm)
+    Country,Month,Average Daily Temperature (C),Average Daily Wind Speed (kph),Average Daily Rainfall (mm)
 India,3,26.141935483870967,5.54516129032258,0.0
 India,4,31.163333333333334,6.206666666666667,
 India,5,34.11612903225806,7.53225806451613,3.0

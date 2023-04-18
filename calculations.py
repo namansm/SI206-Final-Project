@@ -36,6 +36,21 @@ def calc_and_write_averages(outfile, cur, con):
     return data
 
 
+def calc_severe(cur, con):
+    cur.execute("SELECT c.name, COUNT(w.wind) FROM weather w INNER JOIN Countries c ON w.country_id = c.id WHERE w.wind>65 OR w.temperature>35 OR w.temperature<0 OR w.rain>48 GROUP BY w.country_id")
+    severe_data = cur.fetchall()
+    
+    cur.execute("SELECT c.name, MAX(cv.num_cases) FROM Covid cv INNER JOIN Countries c ON cv.country_id = c.id GROUP BY country_id")
+    maxes = cur.fetchall()
+
+    data = []
+    for i in range(2):
+        temp = (severe_data[i][0], severe_data[i][1], maxes[i][1])
+        data.append(temp)
+    
+    return data
+    
+
 
 def plot_india_tempvscases(db):
     with open(db, 'r') as f:
@@ -57,7 +72,8 @@ def plot_india_tempvscases(db):
 
 def main():
      cur, conn = open_database('covid_weather.db')
-     data = calc_and_write_averages("output.csv", cur, conn)
+     averages_data = calc_and_write_averages("output.csv", cur, conn)
+     severe_data = calc_severe(cur, conn)
 
 if __name__ == '__main__':
     main()
