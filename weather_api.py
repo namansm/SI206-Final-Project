@@ -1,19 +1,45 @@
 import requests
 import json
+import os
 import re
+import sqlite3
 import matplotlib as plt
 
 
+def open_database(db_name):
+    path = os.path.dirname(os.path.abspath(__file__))
+    conn = sqlite3.connect(path+'/'+db_name)
+    cur = conn.cursor()
+    return cur, conn
+
+
+def get_covid_data(cur, conn):
+    cur.execute("SELECT * FROM Covid")
+    data = cur.fetchall()
+
+    return data
+
+
+def load_weather_data(data):
+    url = "https://meteostat.p.rapidapi.com/point/daily"
+
+    params = {"lat":"-33.77","lon":"18.56","start":"2020-03-01","end":"2021-03-31"}
+
+    headers = {
+        "X-RapidAPI-Key": "09dff8466dmsh2dcda9bcb212375p1bc56ejsn43f15c65bb68",
+        "X-RapidAPI-Host": "meteostat.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+
+    # MAKE SURE TO HAVE CONTINGENCY FOR EMPTY DATA JSON
+    print(response.json())
+
 
 def main():
-    params = {'param': ['temperature','wind_speed'],
-                         'start': '2010-01-01',
-                         'end': '2018-12-31',
-                         'lat': 43.6529,
-                         'lon': -79.3849,}
-    r = requests.get('https://api.oikolab.com/weather',params=params)
-    print(r.text)
-
+     cur, conn = open_database('covid_weather.db')
+     data = get_covid_data(cur, conn)
+     load_weather_data(data)
 
 if __name__ == '__main__':
     main()
