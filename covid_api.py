@@ -23,6 +23,8 @@ def open_database(db_name):
 
 def main():
     cur, conn = open_database('covid_weather.db')
+
+
     data = load_api_data()
     make_covid_table(data, cur, conn)
     
@@ -60,7 +62,7 @@ def load_api_data():
     return d
 
 def make_covid_table(data, cur, conn):
-    cur.execute("CREATE TABLE IF NOT EXISTS Covid (case_id INTEGER PRIMARY KEY, country_id INTEGER, latitude REAL, longitude REAL, date TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS Covid (case_id INTEGER PRIMARY KEY, country_id INTEGER, latitude REAL, longitude REAL, date TEXT, num_cases INTEGER)")
     
     cur.execute("CREATE TABLE IF NOT EXISTS Countries (id INTEGER PRIMARY KEY, name TEXT)")
     cur.execute("INSERT OR IGNORE INTO Countries (id, name) VALUES (?, ?)", (1, 'India'))
@@ -79,8 +81,9 @@ def make_covid_table(data, cur, conn):
         lat = d["Lat"]
         lon = d["Lon"]
         dates = d["Date"][0:10]
+        cases = d["Cases"]
         
-        cur.execute("INSERT OR IGNORE INTO Covid (case_id, country_id, latitude, longitude, date) VALUES (?,?,?,?,?)", (ind, country, lat, lon, dates))
+        cur.execute("INSERT OR IGNORE INTO Covid (case_id, country_id, latitude, longitude, date, num_cases) VALUES (?,?,?,?,?,?)", (ind, country, lat, lon, dates, cases,))
         cur.execute("SELECT * FROM Covid")
         new_len = len(cur.fetchall())
 

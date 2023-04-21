@@ -25,4 +25,15 @@ def plot_india_tempvscases(db):
     plt.set_title('Temperature vs Covid Cases in India')
     plt.xlabel('Temperature')
     plt.ylabel('Number of Cases')
+<<<<<<< HEAD
     plt.savefig('india_temp_vs_cases.png')
+=======
+    plt.savefig('india_temp_vs_cases.png')
+
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
+>>>>>>> 6ad6db02e8fd2a38b7da706a9ea7b462775aea5a
