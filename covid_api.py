@@ -48,7 +48,7 @@ def load_api_data():
         return None
     
     l = len(data)
-    response = requests.request("GET", 'https://api.covid19api.com/country/russia/status/confirmed?from=2020-03-01T00:00:00Z&to=2021-03-31T00:00:00Z', headers=headers, data=payload)
+    response = requests.request("GET", 'https://api.covid19api.com/country/switzerland/status/confirmed?from=2020-03-01T00:00:00Z&to=2021-03-31T00:00:00Z', headers=headers, data=payload)
     
     if (response.ok): 
         data = response.json()
@@ -57,7 +57,6 @@ def load_api_data():
     else:
         print("Exception!")
         return None
-    
     return d
 
 def make_covid_table(data, cur, conn):
@@ -65,7 +64,7 @@ def make_covid_table(data, cur, conn):
     
     cur.execute("CREATE TABLE IF NOT EXISTS Countries (id INTEGER PRIMARY KEY, name TEXT)")
     cur.execute("INSERT OR IGNORE INTO Countries (id, name) VALUES (?, ?)", (1, 'India'))
-    cur.execute("INSERT OR IGNORE INTO Countries (id, name) VALUES (?, ?)", (2, 'Russian Federation'))
+    cur.execute("INSERT OR IGNORE INTO Countries (id, name) VALUES (?, ?)", (2, 'Switzerland'))
     conn.commit()
 
     ind = 0

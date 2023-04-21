@@ -1,0 +1,12 @@
+{
+'Country': 'India', 
+'CountryCode': 'IN', 
+'Province': '', 
+'City': '', 
+'CityCode': '', 
+'Lat': '20.59', 
+'Lon': '78.96', 
+'Cases': 12221665, 
+'Status': 'confirmed', 
+'Date': '2021-03-31T00:00:00Z'
+}
