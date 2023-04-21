@@ -3,10 +3,21 @@ import json
 import os
 import re
 import sqlite3
+import csv
 import matplotlib as plt
 
-def calc_average_temp_india():
-    pass
+
+def open_database(db_name):
+    path = os.path.dirname(os.path.abspath(__file__))
+    conn = sqlite3.connect(path+'/'+db_name)
+    cur = conn.cursor()
+    return cur, conn
+
+
+def calc_and_write_averages(outfile, cur, con):
+    cur.execute("SELECT c.name, w.temperature, w.wind, w.rain FROM weather w INNER JOIN Countries c ON w.country_id = c.id")
+    data = cur.fetchall()
+    print(data)
 
 
 def plot_india_tempvscases(db):
@@ -32,7 +43,9 @@ def plot_india_tempvscases(db):
 
 
 def main():
-    pass
+    cur, conn = open_database("covid_weather.db")
+    calc_and_write_averages("output_data.csv", cur, conn)
+
 
 if __name__ == '__main__':
     main()
