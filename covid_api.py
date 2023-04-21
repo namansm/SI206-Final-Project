@@ -24,7 +24,6 @@ def open_database(db_name):
 def main():
     cur, conn = open_database('covid_weather.db')
 
-
     data = load_api_data()
     make_covid_table(data, cur, conn)
     
